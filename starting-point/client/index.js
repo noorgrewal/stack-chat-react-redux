@@ -16,6 +16,11 @@ ReactDOM.render(
       <Router>
         <Main />
       </Router>
+<<<<<<< HEAD
     </Provider>,
     document.getElementById('app')
+=======
+    </Provider>
+    , document.getElementById('app')
+>>>>>>> 645e750c554b10c8bdcbf217c8d85bfd9bf7d2fd
 );
