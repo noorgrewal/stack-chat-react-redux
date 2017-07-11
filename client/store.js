@@ -102,12 +102,15 @@ export function addChannel(channelName){
   return function thunk(dispatch){
     return axios.post('/api/channels',{name: channelName})
     .then(res => res.data)
-    .then(channel => {
-      const action = getChannel(channel);
+    .then(newChannel => {
+      const action = getChannel(newChannel);
       dispatch(action);
+      socket.emit('new-channel', newChannel);
     })
   }
 }
+
+
 
 // REDUCER
 
