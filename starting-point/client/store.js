@@ -45,7 +45,8 @@ export function writeMessage (content) {
 }
 
 export function getChannels (channels) {
-  const action = { type: GET_CHANNELS, channels}
+  const action = { type: GET_CHANNELS, channels};
+  return action;
 }
 // THUNK CREATORS
 
