@@ -10,7 +10,8 @@ import socket from './socket';
 const initialState = {
   messages: [],
   name: 'Reggie',
-  newMessageEntry: ''
+  newMessageEntry: '',
+  channels : []
 };
 
 // ACTION TYPES
@@ -19,6 +20,7 @@ const UPDATE_NAME = 'UPDATE_NAME';
 const GET_MESSAGE = 'GET_MESSAGE';
 const GET_MESSAGES = 'GET_MESSAGES';
 const WRITE_MESSAGE = 'WRITE_MESSAGE';
+const GET_CHANNELS = 'GET_CHANNELS';
 
 // ACTION CREATORS
 
@@ -42,6 +44,9 @@ export function writeMessage (content) {
   return action;
 }
 
+export function getChannels (channels) {
+  const action = { type: GET_CHANNELS, channels}
+}
 // THUNK CREATORS
 
 export function fetchMessages () {
@@ -57,7 +62,6 @@ export function fetchMessages () {
 }
 
 export function postMessage (message) {
-
   return function thunk (dispatch) {
     return axios.post('/api/messages', message)
       .then(res => res.data)
@@ -67,8 +71,20 @@ export function postMessage (message) {
         socket.emit('new-message', newMessage);
       });
   }
-
 }
+
+
+export function fetchChannels () {
+  return function thunk(dispatch){
+    return axios.get('/api/channels')
+    .then(res => res.data)
+    .then(channels => {
+      const action = getChannels(channels)
+      dispatch(action)
+    })
+  }
+}
+
 
 // REDUCER
 
@@ -120,6 +136,12 @@ function reducer (state = initialState, action) {
       return {
         ...state,
         newMessageEntry: action.content
+      };
+
+    case GET_CHANNELS:
+      return {
+        ...state,  //Object.assign({}, state, BASICALLY
+        channels: action.channels
       };
 
     default:

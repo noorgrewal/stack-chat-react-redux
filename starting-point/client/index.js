@@ -12,10 +12,9 @@ import store from './store';
 import {Provider} from 'react-redux';
 
 ReactDOM.render(
-    <Provider store = {store} >
+    <Provider store ={store}>
       <Router>
         <Main />
       </Router>
     </Provider>
-  document.getElementById('app')
 );
