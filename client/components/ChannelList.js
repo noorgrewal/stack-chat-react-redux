@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import store from '../store';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router';
 
 // These values are all hardcoded...for now!
 // Soon, we'll fetch them from the server!
@@ -37,8 +38,7 @@ function ChannelList (props) {
 
 const mapStateFunc = connect(mapStateToProps) //will return a function
 const ChannelListContainer = mapStateFunc(ChannelList)
-
-export default ChannelListContainer
+export default withRouter(ChannelListContainer);
 
 
 //
