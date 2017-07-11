@@ -1,5 +1,5 @@
 import axios from 'axios';
-import socket from './socket';
+import socket from '../socket';
 
 //  ACTION TYPES
 
@@ -49,9 +49,9 @@ export function postMessage (message) {
 
 export default function messagesReducer( state = [], action){
   switch (action.type) {
-    case GET_MESSAGES:
+      case GET_MESSAGES:
       return [
-        ...state, action.messages
+        ...state, ...action.messages
       ];
 
     case GET_MESSAGE:

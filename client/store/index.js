@@ -2,15 +2,20 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import messages from './messages';
+import channels from './channels';
+import name from './name';
+import newMessageEntry from './newMessageEntry';
+import newChannelEntry from './newChannelEntry';
 
-
-import messages from './messages'
-import channels from './channels'
 
 const reducer = combineReducers({
   messages,
-  channels
-})
+  channels,
+  name,
+  newMessageEntry,
+  newChannelEntry
+});
 
 const store = createStore(
   reducer,
@@ -21,3 +26,8 @@ const store = createStore(
 );
 
 export default store;
+export * from './messages';
+export * from './channels';
+export * from './name';
+export * from './newChannelEntry';
+export * from './newMessageEntry';

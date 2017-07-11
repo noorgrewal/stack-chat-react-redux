@@ -1,6 +1,3 @@
-import axios from 'axios';
-import socket from './socket';
-
 //ACTION TYPES
 const UPDATE_NAME = 'UPDATE_NAME';
 
@@ -13,7 +10,7 @@ export function updateName (name) {
 
 //REDUCER
 
-function reducer (state = '', action) {
+export default function reducer (state = '', action) {
   switch (action.type) {
     case UPDATE_NAME:
       return action.name;
