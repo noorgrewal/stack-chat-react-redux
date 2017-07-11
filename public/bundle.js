@@ -2352,7 +2352,7 @@ function fetchChannels() {
   };
 }
 
-function addChannel(channelName) {
+function addChannel(channelName, history) {
   return function thunk(dispatch) {
     return _axios2.default.post('/api/channels', { name: channelName }).then(function (res) {
       return res.data;
@@ -2360,6 +2360,7 @@ function addChannel(channelName) {
       var action = getChannel(newChannel);
       dispatch(action);
       _socket2.default.emit('new-channel', newChannel);
+      history.push('/channels/' + newChannel.id);
     });
   };
 }
@@ -18291,7 +18292,7 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleChange: function handleChange(event) {
       dispatch((0, _store.writeChannel)(event.target.value));
@@ -18299,7 +18300,8 @@ function mapDispatchToProps(dispatch) {
     handleSubmit: function handleSubmit(event) {
       event.preventDefault();
       var channelName = event.target.channelName.value;
-      dispatch((0, _store.addChannel)(channelName));
+      dispatch((0, _store.addChannel)(channelName, ownProps.history));
+      dispatch((0, _store.writeChannel)(''));
     }
   };
 }
@@ -18595,6 +18597,10 @@ socket.on('connect', function () {
 
   socket.on('new-message', function (message) {
     _store2.default.dispatch((0, _store.getMessage)(message));
+  });
+
+  socket.on('new-channel', function (channel) {
+    _store2.default.dispatch((0, _store.getChannel)(channel));
   });
 });
 

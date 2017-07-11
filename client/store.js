@@ -98,7 +98,7 @@ export function fetchChannels () {
   }
 }
 
-export function addChannel(channelName){
+export function addChannel(channelName, history){
   return function thunk(dispatch){
     return axios.post('/api/channels',{name: channelName})
     .then(res => res.data)
@@ -106,6 +106,7 @@ export function addChannel(channelName){
       const action = getChannel(newChannel);
       dispatch(action);
       socket.emit('new-channel', newChannel);
+      history.push(`/channels/${newChannel.id}`)
     })
   }
 }

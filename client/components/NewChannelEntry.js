@@ -9,7 +9,7 @@ function mapStateToProps(state){
   }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch, ownProps){
   return {
     handleChange : function(event){
       dispatch(writeChannel(event.target.value))
@@ -17,7 +17,8 @@ function mapDispatchToProps(dispatch){
     handleSubmit : function(event) {
         event.preventDefault();
         const channelName = event.target.channelName.value;
-        dispatch(addChannel(channelName));
+        dispatch(addChannel(channelName, ownProps.history));
+        dispatch(writeChannel(''))
     }
   }
 }
