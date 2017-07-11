@@ -16,6 +16,7 @@ ReactDOM.render(
       <Router>
         <Main />
       </Router>
+<<<<<<< HEAD:client/index.js
 <<<<<<< HEAD
     </Provider>,
     document.getElementById('app')
@@ -23,4 +24,8 @@ ReactDOM.render(
     </Provider>
     , document.getElementById('app')
 >>>>>>> 645e750c554b10c8bdcbf217c8d85bfd9bf7d2fd
+=======
+    </Provider>,
+    document.getElementById('app')
+>>>>>>> 4fab746879efd4f50eba45ee3922d414dd1c7da1:starting-point/client/index.js
 );

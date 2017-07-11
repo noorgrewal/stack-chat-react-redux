@@ -1,34 +1,46 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import store from '../store';
+import { connect } from 'react-redux'
 
 // These values are all hardcoded...for now!
 // Soon, we'll fetch them from the server!
-const RANDOM_CHANNEL = '/channels/1';
-const GENERAL_CHANNEL = '/channels/2';
-const DOGS_CHANNEL = '/channels/3';
-const LUNCH_CHANNEL = '/channels/4';
 
 
 
-// export default class ChannelList extends Component {
-//
-//   constructor () {
-//     super();
-//     this.state = store.getState();
-//   }
-//
-//   componentDidMount () {
-//     // this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
-//   }
-//
-//   componentWillUnmount () {
-//     // this.unsubscribe();
-//   }
-//
-//   render () {
-//
-//     const { messages } = this.state;
+const mapStateToProps = function (state) {
+  return {
+    channels : state.channels,
+    messages : state.messages
+  };
+}
+
+function ChannelList (props) {
+    return (
+        <ul>
+          {props.channels.map( channel => {
+            return (<li key={channel.id}>
+              <NavLink to={`/channels/${channel.id}`} activeClassName = "active">
+                <span> {channel.name} </span>
+                <span className="badge" >{props.messages.filter(message => message.channelId === channel.id).length} </span>
+              </NavLink>
+            </li>)
+          })}
+
+
+          <li>
+            <NavLink to="/new-channel">Create a channel</NavLink>
+          </li>
+        </ul>
+    );
+}
+
+const mapStateFunc = connect(mapStateToProps) //will return a function
+const ChannelListContainer = mapStateFunc(ChannelList)
+
+export default ChannelListContainer
+
+
 //
 //     return (
 //       <ul>
@@ -63,22 +75,3 @@ const LUNCH_CHANNEL = '/channels/4';
 //     );
 //   }
 // }
-
-/** Write your `connect` component below! **/
-
-function ChannelList (props) {
-    const channelID = 1; // CHANGE THIS!
-    return (
-        <ul>
-            <li>
-                <Navlink to="{`/channels/channelID`}" activeClassName = "active">
-                    <span>#
-                        <span className="badge">{/*number of messages*/}
-                </Navlink>
-            </li>
-            <li>
-                <Navlink to="/new-channel">Create a channel</Navlink>
-            </li>
-        </ul>
-    );
-}
